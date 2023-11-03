@@ -4,7 +4,7 @@
             <div class="row" @click="showBlogEditor">
                 <h2 class="centerAlign center">Blogs</h2>
                 <div
-                    class="col s12 l3 m4 mb-4"
+                    class="col s12 l3 m4 mb-4 "
                     v-for="blog in blogSeeder"
                     :key="blog"
                 >
@@ -24,11 +24,24 @@
                         {{ blog.category.name }}
                     </h6>
 
-                    <a href="#"
+                    <router-link
                        :class="classObject"
+                        :to="
+                            loggedIn
+                                ? `#!`
+                                : {
+                                      name: `blog-detail`,
+                                      params: {
+                                          blog: blog.title,
+                                      },
+                                      query: {
+                                          additionalData: blog.id ?? `blog_id`,
+                                      },
+                                  }
+                        "
                     >
                         Read more
-                    </a>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -39,8 +52,9 @@ h2 {
     font-size: 2.53rem;
 }
     .container {
-        width: 88%;
+        width: 90%;
         max-width: unset;
+       margin: 0 auto;
     }
     .customer-title {
         text-align: center;
@@ -52,6 +66,7 @@ h2 {
     .mb-4 {
         margin-bottom: 4vh;
     }
+   
     .btn {
         background-color: var(--primary-color);
         box-shadow: none;
@@ -62,9 +77,18 @@ h2 {
         border: 1px solid var(--primary-color);
         color: var(--primary-color);
     }
+    @media only screen and (max-width: 767px) {
+        .mb-4 {
+            width: 100%;
+            margin-right: 10%;
+        }
+        .container {
+            margin: 0 auto;
+            width: 50vw;
+        }
+    }
 </style>
 <script>
-    //import M from 'materialize-css';
     export default {
         computed: {
             classObject() {

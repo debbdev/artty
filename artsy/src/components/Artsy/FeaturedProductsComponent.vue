@@ -2,7 +2,7 @@
     <div class="row noMarginBottom">
         <div class="col l12 featuredPrdtBackground">
             <div class="container">
-                <h2 class="centerAlign">Featured Products</h2>
+                <h2 class="leftAlign">Featured Products</h2>
                 <div class="row" @click="showProductEditor">
                     <!-- Loop through your products using v-for -->
                     <div
@@ -10,7 +10,17 @@
                         v-for="(product, index) in seededProducts"
                         :key="index"
                     >
-						<a href="#"
+						<router-link
+							:to="
+								loggedIn
+									? `#!`
+									: {
+											name: `product-details`,
+											params: {
+												product_name: product.title,
+											},
+										}
+							"
 						>
 							<img
 								class="responsive-img"
@@ -19,7 +29,7 @@
 								loading="lazy"
 							/>
 							<h3>{{ product.title }}</h3>
-                         </a>
+						</router-link>
                         <span class="category grey-text">{{
                             product.category.name
                         }}</span>
@@ -29,8 +39,7 @@
                                 v-if="product.oldPrice"
                                 >{{ product.oldPrice }}</span
                             >
-                             <!-- removed formatPrice(product.amount), was causing error  --debbdev -->
-                            <span class="curPrice">{{ product.amount }}</span>
+                            <span class="curPrice">{{ formatPrice(product.amount) }}</span>
                         </span>
                         <div class="rating">
                             <i
@@ -52,7 +61,7 @@
 </template>
 
 <script>
-    //import priceMixixn from "@/mixin/priceMixin";
+    import priceMixixn from "@/mixin/priceMixin";
     export default {
         computed: {
             displayedProducts() {
@@ -65,7 +74,7 @@
                 }
             },
         },
-       // mixins: [priceMixixn],
+        mixins: [priceMixixn],
         data() {
             return {
                 renderImage(prd) {
@@ -136,105 +145,122 @@
                         link: "#",
                     },
                     {
-                        title: "Lemon Bracelet",
+                        title: "Pirate Head",
                         category: {
                             name: "Sculpture",
                         },
+                        oldPrice: "$150.00",
                         curPrice: "$120.00",
-                        rating: 5,
+                        rating: 3,
                         images: [
                             {
-                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/AUTOx600_processed_art_2023_10_3c352a35-6a1c-4224-bb95-0f81c2f8ff91-main-master.webp",
+                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/700xAUTO_processed_art_2023_10_391356f4-7b72-4837-8839-4e2475a5605d-main-master.webp",
                             },
                         ],
 
                         link: "#",
                     },
                     {
-                        title: "Boho Fish Face",
-                        category: {
-                            name: "Drawings",
-                        },
-                        curPrice: "$120.00",
-                        rating: 4,
-                        images: [
-                            {
-                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/AUTOx600_processed_art_2023_10_fc3b1266-719f-4e71-9a28-4d149468e5df-main-master.webp",
-                            },
-                        ],
-
-                        link: "#",
-                    },
-                    {
-                        title: "Abstarct Leaf",
-                        category: {
-                            name: "Prints",
-                        },
-                        curPrice: "$120.00",
-                        rating: 2,
-                        images: [
-                            {
-                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/AUTOx600_processed_art_2023_08_5f264e0a-6c47-47cd-aeb8-2a1a4b600575-main-master.webp",
-                            },
-                        ],
-
-                        link: "#",
-                    },
-                    {
-                        title: "Bright Red",
+                        title: "Volcanic Rocks",
                         category: {
                             name: "Paintings",
                         },
-                        curPrice: "$120.00",
-                        rating: 3,
+                        curPrice: "$150.00",
+                        rating: 2,
                         images: [
                             {
-                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/AUTOx600_processed_art_2023_08_d97b72a0-511f-4f6f-bd90-ab17c1d9fcd9-main-master.webp",
+                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/700xAUTO_processed_art_2023_10_8de2fee4-47c7-439d-9fbd-07daacce90e8-main-master.webp",
                             },
                         ],
 
                         link: "#",
                     },
                     {
-                        title: "Pumice Lake",
+                        title: "Flower Pot",
                         category: {
-                            name: "Photo",
+                            name: "Paintings",
                         },
-                        curPrice: "$120.00",
+                        curPrice: "$150.00",
                         rating: 3,
                         images: [
                             {
-                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/AUTOx600_processed_art_2023_10_65d6e48e-f528-4d30-8763-a35a4a179d4c-main-master.webp",
+                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/700xAUTO_processed_art_2023_10_4a5216b4-ab98-4f50-bb51-962208c0c31b-main-master.webp",
                             },
                         ],
 
                         link: "#",
                     },
                     {
-                        title: "Abstract Red",
+                        title: "MarketSquare",
                         category: {
-                            name: "Drawings",
+                            name: "Paintings",
                         },
-                        curPrice: "$120.00",
-                        rating: 3,
+                        curPrice: "$130.00",
+                        rating: 4,
                         images: [
                             {
-                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/AUTOx600_processed_art_2023_10_bbcc1057-4559-41e0-8bbe-773248f0a1c4-main-master.webp",
+                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/700xAUTO_processed_art_2023_10_1abd7c16-5498-401e-931a-c99271dc613c-main-master.webp",
                             },
                         ],
 
                         link: "#",
                     },
                     {
-                        title: "Headless",
+                        title: "Pirate Head",
                         category: {
                             name: "Sculpture",
                         },
+                        oldPrice: "$150.00",
                         curPrice: "$120.00",
                         rating: 3,
                         images: [
                             {
-                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/280xAUTO_processed_art_2023_06_078c8858-4f12-46a0-96ad-bed2d0e5adc5-main-square.webp",
+                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/700xAUTO_processed_art_2023_10_89c8a9fd-5e60-4b1a-b23d-28b998e0fd3f-main-master.webp",
+                            },
+                        ],
+
+                        link: "#",
+                    },
+                    {
+                        title: "Volcanic Rocks",
+                        category: {
+                            name: "Paintings",
+                        },
+                        curPrice: "$150.00",
+                        rating: 2,
+                        images: [
+                            {
+                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/700xAUTO_processed_art_2023_10_e342ab1a-2579-4809-8561-b73d41027993-main-master.webp",
+                            },
+                        ],
+
+                        link: "#",
+                    },
+                    {
+                        title: "Flower Pot",
+                        category: {
+                            name: "Paintings",
+                        },
+                        curPrice: "$150.00",
+                        rating: 3,
+                        images: [
+                            {
+                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/700xAUTO_processed_art_2023_10_3431c67f-8600-4893-9b66-f597e0596bc1-main-master.webp",
+                            },
+                        ],
+
+                        link: "#",
+                    },
+                    {
+                        title: "MarketSquare",
+                        category: {
+                            name: "Paintings",
+                        },
+                        curPrice: "$130.00",
+                        rating: 4,
+                        images: [
+                            {
+                                url: "https://d1ee3oaj5b5ueh.cloudfront.net/thumbs/700xAUTO_processed_art_2023_10_0e2459ea-9dcf-458f-81f3-af5f74c7b276-main-master.webp",
                             },
                         ],
 
@@ -289,7 +315,7 @@ h2 {
     }
 
     .container {
-        width: 88%;
+        width: 80%;
         max-width: unset;
     }
 
@@ -297,14 +323,16 @@ h2 {
         margin-bottom: 5vh;
     }
 
-    .centerAlign {
-        text-align: center;
+    .leftAlign {
+        text-align: left;
     }
 
     .product {
         display: flex;
         flex-direction: column;
         margin-bottom: 6vh;
+        width: 40vw;
+        height: 40vh;
     }
 
     .product h3 {
@@ -334,14 +362,17 @@ h2 {
         font-size: 1.3rem;
     }
     img {
-        width: 300px;
-        height: 300px;
+        width: 15vw;
+        height: 15vh;
     }
     /* MOBILE */
     @media only screen and (max-width: 767px) {
         img {
             width: 100%;
             height: unset;
+        }
+        .product {
+            margin-bottom: 65%;
         }
     }
 </style>

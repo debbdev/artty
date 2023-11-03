@@ -4,7 +4,7 @@
             <div class="col l12 s12 footer">
                 <div class="footerInner">
                     <div class="col l7 s12 mg-Btm-4">
-                        <h3>{{ brandname }}</h3> 
+                        <h3>{{ brandname }}</h3>
                         <h4>{{ brandShortsDesc }}</h4>
                     </div>
                     <div class="col l5 s12">
@@ -19,9 +19,26 @@
                                     :key="category.id"
                                     @click="showCategoryEditEditor"
                                 >
-                                    <a href="#"
+                                    <router-link
+                                        :to="
+                                            loggedIn
+                                                ? `#!`
+                                                : {
+                                                      name: `product-search-category`,
+                                                      params: {
+                                                          category_name:
+                                                              category.name ??
+                                                              `category`,
+                                                      },
+                                                      query: {
+                                                          additionalData:
+                                                              category.id ??
+                                                              `category_id`,
+                                                      },
+                                                  }
+                                        "
                                         class="link"
-                                        >{{ category.name }}</a
+                                        >{{ category.name }}</router-link
                                     >
                                 </li>
 
@@ -97,11 +114,10 @@
                 yourMail: "",
                 social: "",
                 brandname: "Artsy",
-                categories: ['Painting', 'Prints', 'Artworks','Photo', 'Drawings', 'Sculpture'],
+                categories: [{name:'Painting'}, {name:'Prints'}, {name:'Artworks'},{name:'Photo'}, {name:'Drawings'}, {name:'Sculpture'}],
                 loggedIn: false,
                 email: 'chiamakachukwu@gmail.com',
                 socials: Object,
-                
             };
         },
         methods: {
@@ -114,11 +130,11 @@
             },
         },
         props: {
-            // brandname: String,
-            // categories: Array,
-            // socials: Object,
-            // loggedIn: Boolean,
-            // email: String,
+            brandname: String,
+            categories: Array,
+            socials: Object,
+            loggedIn: Boolean,
+            email: String,
         },
         computed: {
             mailUs() {

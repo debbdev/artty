@@ -10,15 +10,16 @@
                 </a>
 
                 <span class="hide-on-large-only mobileNavRight">
-                    <a href="#"                         
-                         class="iconLinks shoppingCartIconContainer mg-rt-2"
+                    <router-link
+                        :to="{ name: `Cart` }"
+                        class="iconLinks shoppingCartIconContainer mg-rt-2"
                     >
                         <i
                             class="material-icons themeTextColor mobileShoppingIcon"
                             >shopping_basket</i
                         >
                         <span class="notify">{{ cartCount }}</span>
-                </a>
+                    </router-link>
                     <a
                         href="#"
                         data-target="mobile-demo"
@@ -42,9 +43,20 @@
                                 :key="category.id"
                                 @click="showCategoryEditEditor"
                             >
-                                <a href="#"
+                                <router-link
+                                    :to="{
+                                        name: `product-search-category`,
+                                        params: {
+                                            category_name:
+                                                category.name ?? `category`,
+                                        },
+                                        query: {
+                                            additionalData:
+                                                category.id ?? `category_id`,
+                                        },
+                                    }"
                                     v-if="!loggedIn"
-                                    >{{ category.name }}</a
+                                    >{{ category.name }}</router-link
                                 >
                                 <a href="#productCategorySection" v-else>{{
                                     category.name
@@ -67,9 +79,25 @@
                                 :key="category.id"
                                 @click="showCategoryEditEditor"
                             >
-                                <a href=""
-                                    
-                                    >{{ category.name }}</a
+                                <router-link
+                                    :to="
+                                        loggedIn
+                                            ? `#!`
+                                            : {
+                                                  name: `product-search-category`,
+                                                  params: {
+                                                      category_name:
+                                                          category.name ??
+                                                          `category`,
+                                                  },
+                                                  query: {
+                                                      additionalData:
+                                                          category.id ??
+                                                          `category_id`,
+                                                  },
+                                              }
+                                    "
+                                    >{{ category.name }}</router-link
                                 >
                             </li>
                         </ul>
@@ -116,12 +144,13 @@
                             </a>
                         </li>
                         <li>
-                            <a
+                            <router-link
+                                :to="{ name: `Cart` }"
                                 class="iconLinks withNotifier"
                             >
                                 <i class="material-icons">shopping_cart</i>
                                 <span class="notify">{{ cartCount }}</span>
-                        </a>
+                            </router-link>
                         </li>
                     </ul>
                 </div>
@@ -138,10 +167,24 @@
                 :key="category.id"
                 @click="showCategoryEditEditor"
             >
-                <a href=""
-                    
+                <router-link
+                    :to="
+                        loggedIn
+                            ? `#!`
+                            : {
+                                  name: `product-search-category`,
+                                  params: {
+                                      category_name:
+                                          category.name ?? `category`,
+                                  },
+                                  query: {
+                                      additionalData:
+                                          category.id ?? `category_id`,
+                                  },
+                              }
+                    "
                     class="link"
-                    >{{ category.name }}</a
+                    >{{ category.name }}</router-link
                 >
             </li>
             <li>
@@ -158,10 +201,14 @@
                     <i class="material-icons">person</i>
                     LOGIN/REGISTER
                 </a>
-                <a href=""
+                <router-link
                     v-else
-                    
-                    >{{ names }}</a
+                    :to="
+                        role == `Admin`
+                            ? `/vendor/dashboard`
+                            : `/your_account/dashboard`
+                    "
+                    >{{ names }}</router-link
                 >
                 <!-- TODO: add dropdown for user specific operations -->
             </li>
@@ -217,10 +264,14 @@
 </template>
   
 <script>
-    // import apiMixin from "@/mixin/apiMixin";
-    // import { useCartStore } from "@/store/store.js";
+    // DO NOT CHANGE THESE  
+    // import { useCartStore } from "../../../store/store"; 
+    import apiMixin from "@/mixin/apiMixin";
+    // END of DO NO 
+
+    import { useCartStore } from "../../stores/store.js";
     export default {
-       // mixins: [apiMixin],
+        mixins: [apiMixin],
         data() {
             return {
                 searchproduct: {
@@ -244,16 +295,15 @@
             };
         },
         mounted() {
-            
             localStorage.setItem("previousPage", this.$route.fullPath);
-            let elems = document.querySelectorAll(".sidenav");
-             M.Sidenav.init(elems, {
+            var elems = document.querySelectorAll(".sidenav");
+            M.Sidenav.init(elems, {
                 edge: "left",
             });
 
             if (this.categories.length > 3) {
-                let dropdownElems = document.querySelectorAll(".dropdown-trigger");
-                 M.Dropdown.init(dropdownElems, {
+                var dropdownElems = document.querySelectorAll(".dropdown-trigger");
+                M.Dropdown.init(dropdownElems, {
                     constrainWidth: true,
                     coverTrigger: false,
                 });
@@ -261,31 +311,26 @@
         },
         computed: {
             isAuthenticated() {
-            //     const cartStore = useCartStore();
-            //     return cartStore.isAuthenticated;
-                    return false;
-             },
-             names() {
-            //     const cartStore = useCartStore();
-            //     const names = cartStore.user.names;
-            //     const nameParts = names.split(" ");
-            //     return nameParts[0];
-                    return "Chimer A"
+                const cartStore = useCartStore();
+                return cartStore.isAuthenticated;
             },
-             role() {
-            //     const cartStore = useCartStore();
-            //     const role = cartStore.user.role;
-            //     return role;
-                   return "customer";
-             },
+            names() {
+                const cartStore = useCartStore();
+                const names = cartStore.user.names;
+                const nameParts = names.split(" ");
+                return nameParts[0];
+            },
+            role() {
+                const cartStore = useCartStore();
+                const role = cartStore.user.role;
+                return role;
+            },
             cartCount() {
-            //     const cartStore = useCartStore();
-            //     return cartStore.cartCount;
-                    return 0;
-             },
+                const cartStore = useCartStore();
+                return cartStore.cartCount;
+            },
             wishlistCount() {
-            //     return useCartStore().wishlistItemCount;
-                    return 0;
+                return useCartStore().wishlistItemCount;
             },
             mailUs() {
                 return (
@@ -310,10 +355,10 @@
             },
         },
         props: {
-            // brandname: String,
-            // categories: Array,
-            // loggedIn: Boolean,
-            // email: String,
+            brandname: String,
+            categories: Array,
+            loggedIn: Boolean,
+            email: String,
         },
         watch: {},
     };

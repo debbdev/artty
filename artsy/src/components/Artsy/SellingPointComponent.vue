@@ -4,8 +4,7 @@
             <div class="card"  @click="showSellingPointEditor">
                 <div class="card-content">
                     <div class="row noMarginBottom">
-                        <!-- v-for(sellPoint,index) in sellingPSeeder --debbdev -->
-                        <div class="col l4 m6 s12 mobilePoint" v-for="(sellPoint, index) in sellingPSeeder" :key="index">
+                        <div class="col l4 m6 s12 mobilePoint" v-for="(sellPoint, index) in sellPoint" :key="index">
                             <div class="img">
                                 <img
                                     :src="sellPoint.image_or_icon"

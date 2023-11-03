@@ -25,8 +25,19 @@
                             }}
                         </p>
                         <div class="heroCtaContainer">
-                            <a href="#"
-                                >Shop Now</a
+                            <router-link
+                                :to="{
+                                    name: `product-search-category`,
+                                    params: {
+                                        category_name:
+                                            category.name ?? `category`,
+                                    },
+                                    query: {
+                                        additionalData:
+                                            category.id ?? `category_id`,
+                                    },
+                                }"
+                                >Shop Now</router-link
                             >
                         </div>
                     </div>
@@ -132,9 +143,9 @@
     }
 
     .productCatSectionInner {
-        width: 80vw;
+        width: 80%;
         display: flex;
-        /* justify-content: space-between; */
+        justify-content: space-between;
         gap: 2vh;
     }
 

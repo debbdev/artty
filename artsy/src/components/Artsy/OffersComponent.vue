@@ -15,9 +15,26 @@
                             </p>
                             <h5>{{ heroSeeder.subtitle }}</h5>
                             <div class="offerCtaContainer">
-                                <a href="#"  
+                                <router-link
+                                    :to="
+                                        loggedIn
+                                            ? `#!`
+                                            : {
+                                                  name: `product-search-category`,
+                                                  params: {
+                                                      category_name:
+                                                          heroSeeder.title ??
+                                                          `offer`,
+                                                  },
+                                                  query: {
+                                                      additionalOfferData:
+                                                          heroSeeder.id ??
+                                                          `offer_id`,
+                                                  },
+                                              }
+                                    "
                                     class="link"
-                                    >Shop Now</a
+                                    >Shop Now</router-link
                                 >
                             </div>
                         </div>
@@ -29,7 +46,6 @@
 </template>
 
 <script>
-    
     export default {
         data() {
             return {

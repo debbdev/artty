@@ -15,13 +15,55 @@
                     </h1>
                     <h3 class="heroMinorHeading">{{ heroSeeder.subtitle }}</h3>
                     <div class="heroCtaContainer">
-                        <a href="#"
+                        <router-link
+                            :to="
+                                loggedIn
+                                    ? `#!`
+                                    : {
+                                          name: `product-search-category`,
+                                          params: {
+                                              category_name:
+                                                  heroSeeder.type == `welcome`
+                                                      ? `all`
+                                                      : heroSeeder.title ??
+                                                        `offer`,
+                                          },
+                                          query: {
+                                              additionalOfferData:
+                                                  heroSeeder.type == `welcome`
+                                                      ? `all`
+                                                      : heroSeeder.id ??
+                                                        `offer_id`,
+                                          },
+                                      }
+                            "
                             class="link"
-                            >Shop Now</a
+                            >Shop Now</router-link
                         >
-                        <a href="#"
+                        <router-link
+                            :to="
+                                loggedIn
+                                    ? `#!`
+                                    : {
+                                          name: `product-search-category`,
+                                          params: {
+                                              category_name:
+                                                  heroSeeder.type == `welcome`
+                                                      ? `all`
+                                                      : heroSeeder.title ??
+                                                        `offer`,
+                                          },
+                                          query: {
+                                              additionalData:
+                                                  heroSeeder.type == `welcome`
+                                                      ? `all`
+                                                      : heroSeeder.id ??
+                                                        `offer_id`,
+                                          },
+                                      }
+                            "
                             class="link"
-                            >Find More</a
+                            >Find More</router-link
                         >
                     </div>
                 </div>
@@ -31,7 +73,6 @@
 </template>
 
 <script>
-    
     export default {
         computed: {
             imageUrlWithTimestamp() {
@@ -61,7 +102,7 @@
         },
         mounted() {
             var elems = document.querySelectorAll(`.parallax`);
-            M.Parallax.init(elems, {});
+            var instances = M.Parallax.init(elems, {});
 
             if (this.hero.length > 0) {
                 this.heroSeeder = this.hero[0];
