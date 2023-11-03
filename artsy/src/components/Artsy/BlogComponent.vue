@@ -4,7 +4,7 @@
             <div class="row" @click="showBlogEditor">
                 <h2 class="centerAlign center">Blogs</h2>
                 <div
-                    class="col s12 l3 m4 mb-4 "
+                    class="col s12 l3 m6 mb-4 "
                     v-for="blog in blogSeeder"
                     :key="blog"
                 >
@@ -78,14 +78,7 @@ h2 {
         color: var(--primary-color);
     }
     @media only screen and (max-width: 767px) {
-        .mb-4 {
-            width: 100%;
-            margin-right: 10%;
-        }
-        .container {
-            margin: 0 auto;
-            width: 50vw;
-        }
+       
     }
 </style>
 <script>

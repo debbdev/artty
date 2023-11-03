@@ -6,7 +6,7 @@
                 <div class="row" @click="showProductEditor">
                     <!-- Loop through your products using v-for -->
                     <div
-                        class="col l3 s12 product"
+                        class="col l2 s12 m4 product"
                         v-for="(product, index) in seededProducts"
                         :key="index"
                     >
@@ -366,13 +366,10 @@ h2 {
         height: 15vh;
     }
     /* MOBILE */
-    @media only screen and (max-width: 767px) {
+    @media only screen and (max-width: 600px) {
         img {
-            width: 100%;
+            width: 50%;
             height: unset;
-        }
-        .product {
-            margin-bottom: 65%;
         }
     }
 </style>
