@@ -7,7 +7,7 @@
             <div
                 v-for="(category, index) in categories.slice(0, 3)"
                 :key="index"
-                class="productCat"
+                class=" productCat"
                 :style="{
                     backgroundImage: `url(${
                         !category.image ? seeder[index].image : category.image

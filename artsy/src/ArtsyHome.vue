@@ -2,11 +2,13 @@
     <div>
         <NavbarComponent :brandname="brandname" :categories="categories" :loggedIn="loggedIn" @showEditNavMenu="showEditNavMenu($event)" :email="email"/>
         <HeroComponent :loggedIn="loggedIn" @showHeroEditor="showHeroEditor($event)" :hero="hero" :timestamp="timestamp" />
+        <ServicesComponent :loggedIn="loggedIn" @showServicesEditor="showServicesEditor($event)" :serviceSeeder="serviceSeeder"/>
         <CategoryComponent :categories="categories" :loggedIn="loggedIn" @showEditNavMenu="showEditNavMenu($event)" />
+        <BestSelling :products="products" @showProductEditor="showProductEditor" :loggedIn="loggedIn" />
         <FeaturedProductsComponent :products="products" @showProductEditor="showProductEditor" :loggedIn="loggedIn"/>
         <BlogComponent @showEditBlogMenu="showEditBlogMenu" :loggedIn="loggedIn" :blogs="blogs"/>
         <OffersComponent :loggedIn="loggedIn" @showOffersEditor="showOffersEditor($event)" :hero="hero" :timestamp="timestamp" :offers="offers"/>
-        <SellingPointComponent @showSellingPointEditor="showSellingPointEditor($event)" :loggedIn="loggedIn" :sellPoint="sellPoint" />
+        <CompanyComponent @showCompanyEditor="showCompanyEditor($event)" :loggedIn="loggedIn" :CompanySeeder="CompanySeeder" />
         <FooterComponent :brandname="brandname" :categories="categories" @showSocialEditor="showSocialEditor" :socials="socials" :loggedIn="loggedIn" :branddesc="branddesc"/>
     </div>
 </template>
@@ -20,10 +22,12 @@ import NavbarComponent from "./components/Artsy/NavbarComponent.vue";
 import OffersComponent from "./components/Artsy/OffersComponent.vue";
 import FooterComponent from "./components/Artsy/FooterComponent.vue";
 import BlogComponent from "./components/Artsy/BlogComponent.vue";
-import SellingPointComponent from "./components/Artsy/SellingPointComponent.vue";
+import CompanyComponent from "./components/Artsy/CompanyComponent.vue";
+import ServicesComponent from './components/Artsy/ServicesComponent.vue';
+import BestSelling from './components/Artsy/BestSelling.vue';
 
 export default {
-    components: { NavbarComponent, HeroComponent, OffersComponent, FeaturedProductsComponent, CategoryComponent, FooterComponent, SellingPointComponent, BlogComponent },
+    components: { NavbarComponent, HeroComponent, OffersComponent, FeaturedProductsComponent, CategoryComponent, FooterComponent, CompanyComponent, BlogComponent, ServicesComponent, BestSelling},
     data() {
         return {
             brandname: `ARTsy`,

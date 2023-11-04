@@ -2,12 +2,12 @@
     <div class="row noMarginBottom">
         <div class="col l12 featuredPrdtBackground">
             <div class="container">
-                 <div class="textBox"><h5 class="leftAlign">Featured Products</h5><span>See All</span></div>
+                <div class="textBox"><h5 class="leftAlign">Best Selling Artworks</h5><span>See All</span></div>
                 <div class="row" @click="showProductEditor">
                     <!-- Loop through your products using v-for -->
                     <div
                         class="col l2 s12 m4 product"
-                        v-for="(product, index) in seededProducts.slice(6)"
+                        v-for="(product, index) in seededProducts.slice(0,6)"
                         :key="index"
                     >
 						<router-link
@@ -307,7 +307,7 @@ h2 {
     }
 
     .row .col.featuredPrdtBackground {
-        background-color: #f5f7f9;
+        
         padding-left: 0 !important;
         padding-right: 0 !important;
         padding-top: 3vh;
@@ -329,7 +329,7 @@ h2 {
     }
     .leftAlign {
         text-align: left;
-        size: 1rem;
+        size: 0.5rem;
     }
 
     .product {

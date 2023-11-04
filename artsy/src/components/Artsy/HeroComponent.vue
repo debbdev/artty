@@ -2,10 +2,9 @@
     <div id="herocomponent">
         <div
             class="parallax-container"
-            :style="{ zIndex: !loggedIn ? -1 : `inherit` }"
-        >
-            <div class="parallax" @click="showHeroEditor">
-                <img :src="imageUrlWithTimestamp" />
+            :style="{ zIndex: !loggedIn ? -1 : `inherit` }" >
+            <div class="parallax imgContainer" @click="showHeroEditor">
+                <img class="imgSize" :src="imageUrlWithTimestamp" />
             </div>
             <div class="heroContainer" @click="showHeroEditor">
                 <div class="heroBackgroundOverlay"></div>
@@ -13,7 +12,7 @@
                     <h1 class="heroMainHeading">
                         {{ heroSeeder.description }}
                     </h1>
-                    <h3 class="heroMinorHeading">{{ heroSeeder.subtitle }}</h3>
+                    <h2 class="heroMinorHeading">{{ heroSeeder.subtitle }}</h2>
                     <div class="heroCtaContainer">
                         <router-link
                             :to="
@@ -68,6 +67,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </template>
@@ -91,6 +91,7 @@
                 },
                 imgDimensionHeight: 880,
                 imgDimensionWidth: 800, 
+                
             };
         },
         methods: {
@@ -99,6 +100,7 @@
                     this.$emit("showHeroEditor", {evt: true, width: this.imgDimensionWidth, height: this.imgDimensionHeight});
                 }
             },
+            
         },
         mounted() {
             var elems = document.querySelectorAll(`.parallax`);
@@ -108,6 +110,7 @@
                 this.heroSeeder = this.hero[0];
             }
         },
+        
         props: {
             loggedIn: Boolean,
             hero: Array,
@@ -138,40 +141,45 @@
         width: 100%;
         height: 100vh;
         padding: 35vh 23.4vw;
+        position: relative;
+    }
+    .imgContainer {
+        height: 75vh;
     }
 
     .heroBackgroundOverlay {
         width: 100%;
-        height: 100vh;
+        height: 79vh;
         position: absolute;
         top: 0;
         left: 0;
-        opacity: 0.49;
+        opacity: 0.6;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(180deg, #0084d6 0%, #000 100%);
+        background: linear-gradient(180deg, #000000 0%, #000000 100%);
     }
 
     .heroContent {
-        position: relative;
+        position: absolute;
+        top: 20%;
+        left: 10%;
         width: 60vw;
-        height: 44.5vh;
-        margin: 0 auto;
+        height: 40vh;
+        margin: 0 auto 100% auto;
         color: #fff;
-        z-index: 10;
+        z-index: 1;
     }
-
     .heroMainHeading {
-        width: 50vh;
-        margin: 0;
-        font-size: 2.7rem;
-        font-weight: 600;
+        width: 40vw;
+        font-size: 4rem;
+        font-weight: 800;
+        margin-bottom: 4vh;
     }
 
     .heroMinorHeading {
         font-size: 1.3rem;
-        margin: 4vh 0 6vh 0;
+        margin: 2vh 0 4vh 0;
     }
 
     .heroCtaContainer .link {
@@ -202,8 +210,9 @@
     }
 
     .parallax-container {
-        height: 100vh;
+        height: 75vh;
     }
+    
 
     /* MOBILE */
     @media only screen and (max-width: 767px) {

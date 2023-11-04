@@ -10,7 +10,7 @@
                 >
                     <img
                         :src="blog.images[0].url"
-                        alt="girls"
+                        alt="art"
                         class="responsive-img"
                     />
                     <p class="blog-description">
@@ -49,12 +49,12 @@
 </template>
 <style scoped>
 h2 {
-    font-size: 2.53rem;
+    font-size: 2rem;
 }
     .container {
         width: 90%;
         max-width: unset;
-       margin: 0 auto;
+        margin: 0 auto;
     }
     .customer-title {
         text-align: center;
